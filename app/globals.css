@@ -1,0 +1,421 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ============================================
+   Custom Theme Configuration for Fashion Website
+   Using Tailwind CSS v4 @theme directive
+   ============================================ */
+
+@theme {
+  /* ------------------------------------------
+     Typography - Font Families
+     ------------------------------------------ */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+
+  /* ------------------------------------------
+     Brand Colors - Dusty Rose Palette
+     A sophisticated, muted rose palette for fashion
+     ------------------------------------------ */
+  --color-brand-50: #faf5f7;
+  --color-brand-100: #f5eaef;
+  --color-brand-200: #edd8e0;
+  --color-brand-300: #dfb9c7;
+  --color-brand-400: #cb8fa4;
+  --color-brand-500: #b86b85;
+  --color-brand-600: #a15068;
+  --color-brand-700: #874052;
+  --color-brand-800: #713846;
+  --color-brand-900: #5f323d;
+  --color-brand-950: #39181f;
+
+  /* ------------------------------------------
+     Extended Spacing Scale
+     For editorial/magazine-style layouts
+     ------------------------------------------ */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-30: 7.5rem;
+
+  /* ------------------------------------------
+     Extended Typography Scale
+     Larger sizes for fashion hero sections
+     ------------------------------------------ */
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 1rem;
+  --text-7xl: 5rem;
+  --text-7xl--line-height: 1.1;
+  --text-8xl: 6rem;
+  --text-8xl--line-height: 1;
+  --text-9xl: 8rem;
+  --text-9xl--line-height: 1;
+
+  /* ------------------------------------------
+     Custom Aspect Ratios
+     For fashion photography
+     ------------------------------------------ */
+  --aspect-3/4: 3 / 4;
+  --aspect-4/5: 4 / 5;
+  --aspect-2/3: 2 / 3;
+  --aspect-9/16: 9 / 16;
+
+  /* ------------------------------------------
+     Custom Transition Timing Functions
+     Smooth, elegant easing for fashion aesthetics
+     ------------------------------------------ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-fashion: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* ------------------------------------------
+     Custom Transition Durations
+     ------------------------------------------ */
+  --transition-duration-400: 400ms;
+
+  /* ------------------------------------------
+     Custom Animations
+     ------------------------------------------ */
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-fade-up: fade-up 0.5s ease-out;
+  --animate-slide-in-right: slide-in-right 0.5s ease-out;
+  --animate-scale-in: scale-in 0.3s ease-out;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+/* ============================================
+   CSS Custom Properties
+   ============================================ */
+
+:root {
+  /* Colors */
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-muted: #737373;
+  --color-border: #e5e5e5;
+
+  /* Layout */
+  --header-height: 5rem;
+  --section-padding: 5rem;
+
+  /* Transitions */
+  --transition-fast: 150ms;
+  --transition-base: 300ms;
+  --transition-slow: 500ms;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0a0a0a;
+    --color-foreground: #ededed;
+    --color-muted: #a3a3a3;
+    --color-border: #262626;
+  }
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Better Focus States */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* Selection - Brand Color */
+::selection {
+  background-color: rgba(184, 107, 133, 0.3);
+  color: inherit;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+/* Hide scrollbar but allow scrolling */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Image hover zoom effect */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform var(--transition-slow) var(--ease-out-expo);
+}
+.img-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* Underline animation for links */
+.underline-animate {
+  position: relative;
+}
+.underline-animate::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width var(--transition-base) var(--ease-out-expo);
+}
+.underline-animate:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   Prose/Typography Customizations
+   For blog content styling
+   ============================================ */
+
+.prose {
+  --tw-prose-body: var(--color-foreground);
+  --tw-prose-headings: var(--color-foreground);
+  --tw-prose-links: var(--color-foreground);
+  --tw-prose-quotes: var(--color-muted);
+}
+
+.prose img {
+  border-radius: 0.5rem;
+  margin: 2rem auto;
+}
+
+.prose blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  border-left-color: rgba(184, 107, 133, 0.5);
+}
+
+.prose a {
+  text-decoration-color: var(--color-brand-400);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--transition-fast);
+}
+
+.prose a:hover {
+  text-decoration-color: var(--color-brand-600);
+}
+
+/* ============================================
+   Loading Skeleton Animation
+   ============================================ */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 25%,
+    transparent 50%,
+    var(--color-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================
+   Stagger Animation Delays
+   ============================================ */
+
+@layer utilities {
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  /* Counter utilities for ordered lists in BlogContent */
+  .counter-reset-item {
+    counter-reset: item;
+  }
+  .counter-increment-item {
+    counter-increment: item;
+  }
+
+  /* Screen reader only - visually hidden but accessible */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Make sr-only visible when focused (for skip links) */
+  .sr-only:focus,
+  .sr-only:focus-within {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+/* ============================================
+   Reduced Motion Preferences
+   Respects user system preferences for reduced motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable smooth scroll */
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Remove parallax effects */
+  .parallax {
+    transform: none !important;
+  }
+
+  /* Disable animated backgrounds */
+  .animate-fade-in,
+  .animate-fade-up,
+  .animate-slide-in-right,
+  .animate-scale-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Disable image zoom on hover */
+  .img-zoom:hover img,
+  .group:hover img {
+    transform: none !important;
+  }
+
+  /* Disable skeleton loading animation */
+  .skeleton {
+    animation: none !important;
+    background: var(--color-border) !important;
+  }
+
+  /* Ensure content is immediately visible */
+  [data-motion],
+  [data-motion-initial] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================
+   Smooth Scroll Behavior for those who prefer it
+   ============================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Scroll-linked animation hint */
+  @supports (animation-timeline: scroll()) {
+    .scroll-fade {
+      animation: scroll-fade linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    @keyframes scroll-fade {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+}

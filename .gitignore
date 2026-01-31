@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Environment files (keep secrets private)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.log
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Sanity
+.sanity/
+
+# Extracted images (temporary)
+scripts/extracted-images/
+
+# Vercel env file
+.env.vercel
+
+# Ralph
+.ralph/
+
+# Pytest
+.pytest_cache/
+
+# Ralph session
+.ralph-session/
+
+# Tasks
+tasks/
+
+# Fashion docs (internal)
+fashion-website-docs/
+
+# Test fix plan
+TEST_FIX_PLAN.md
+
+# Portfolio PDF (too large)
+Portfolio.pdf
