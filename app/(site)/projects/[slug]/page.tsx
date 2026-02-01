@@ -17,7 +17,7 @@ import {
   type AdjacentProjectsResult,
 } from '@/sanity/lib/queries'
 import { BlogContent } from '@/components/content'
-import { ImageWithPopup } from '@/components/ui'
+import { ImageWithPopup, ImageLightbox } from '@/components/ui'
 import type { PortableText as PortableTextType, ProjectCategory, PopupContent } from '@/types'
 
 interface ProjectPageProps {
@@ -162,30 +162,47 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           Full-width cover image with immersive presentation
           ============================================ */}
       <header className="relative">
-        {/* Cover Image */}
+        {/* Cover Image - Clickable to view full size */}
         {project.coverImage?.asset?.url ? (
-          <div className="relative aspect-[4/3] md:aspect-[21/9] lg:aspect-[3/1] overflow-hidden bg-neutral-100 dark:bg-neutral-900">
-            <Image
-              src={urlFor(project.coverImage)
-                .width(2400)
-                .height(900)
-                .quality(90)
-                .auto('format')
-                .url()}
-              alt={project.coverImage.alt || project.title}
-              fill
-              priority
-              className="object-cover"
-              sizes="100vw"
-              placeholder={project.coverImage.asset.metadata?.lqip ? 'blur' : undefined}
-              blurDataURL={project.coverImage.asset.metadata?.lqip}
-            />
-            {/* Gradient overlay for text legibility */}
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
-              aria-hidden="true"
-            />
-          </div>
+          <ImageLightbox
+            src={urlFor(project.coverImage)
+              .width(2400)
+              .quality(95)
+              .auto('format')
+              .url()}
+            alt={project.coverImage.alt || project.title}
+            blurDataURL={project.coverImage.asset.metadata?.lqip}
+          >
+            <div className="relative aspect-[3/4] sm:aspect-[4/3] md:aspect-[21/9] lg:aspect-[3/1] overflow-hidden bg-neutral-100 dark:bg-neutral-900 group">
+              <Image
+                src={urlFor(project.coverImage)
+                  .width(2400)
+                  .height(900)
+                  .quality(90)
+                  .auto('format')
+                  .url()}
+                alt={project.coverImage.alt || project.title}
+                fill
+                priority
+                className="object-contain sm:object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                sizes="100vw"
+                placeholder={project.coverImage.asset.metadata?.lqip ? 'blur' : undefined}
+                blurDataURL={project.coverImage.asset.metadata?.lqip}
+              />
+              {/* Gradient overlay for text legibility */}
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
+                aria-hidden="true"
+              />
+              {/* Zoom hint indicator */}
+              <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-2 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm rounded-full text-xs font-medium text-neutral-700 dark:text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                </svg>
+                <span>Click to view full size</span>
+              </div>
+            </div>
+          </ImageLightbox>
         ) : (
           /* Fallback gradient when no cover image */
           <div className="relative aspect-[4/3] md:aspect-[21/9] lg:aspect-[3/1] bg-gradient-to-br from-brand-200 via-brand-100 to-neutral-100 dark:from-brand-950 dark:via-neutral-900 dark:to-neutral-950">
@@ -271,7 +288,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             {/* Metadata Row - Client & Date */}
             <div className="flex flex-wrap items-center gap-6 md:gap-8 text-sm md:text-base text-neutral-600 dark:text-neutral-400 animate-fade-up animation-delay-200">
-              {/* Client */}
+              {/* Medium / Type of Art */}
               {project.client && (
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
@@ -286,13 +303,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"
+                        d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
                       />
                     </svg>
                   </div>
                   <div>
                     <span className="block text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-0.5">
-                      Client
+                      Medium
                     </span>
                     <span className="font-medium text-neutral-900 dark:text-neutral-100">
                       {project.client}

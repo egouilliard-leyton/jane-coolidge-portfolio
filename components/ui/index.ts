@@ -2,6 +2,8 @@
 export { default as ImageWithPopup } from './ImageWithPopup'
 export type { ImageWithPopupProps } from './ImageWithPopup'
 
+export { default as ImageLightbox } from './ImageLightbox'
+
 // Accessibility
 export { default as SkipLink } from './SkipLink'
 
